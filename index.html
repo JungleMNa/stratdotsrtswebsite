@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title>stratdots</title>
+  <style>
+    @font-face {
+      font-family: 'StratdotsHand';
+      src: url('GochiHand-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'StratdotsHand', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #ffffff;
+      background: url('background.png') center center / cover fixed no-repeat;
+    }
+
+    .backdrop {
+      min-height: 100vh;
+      background: radial-gradient(circle at top, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.85));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header.hero {
+      padding: 3rem 1.5rem 2rem;
+      text-align: center;
+    }
+
+    header.hero h1 {
+      margin: 0 0 1rem;
+      font-size: clamp(3.4rem, 7vw, 4.8rem);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .hero-buttons {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+    }
+
+    .hero-buttons a {
+      text-decoration: none;
+      padding: 0.6rem 1.4rem;
+      border-radius: 0;
+      border: 2px solid rgba(255, 255, 255, 0.75);
+      background: rgba(0, 0, 0, 0.4);
+      color: #ffffff;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .hero-buttons a:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    main {
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto 3rem;
+      padding: 0 1.5rem 2rem;
+      flex: 1 0 auto;
+      text-align: center;
+    }
+
+    section {
+      margin-top: 2rem;
+      padding: 1.5rem 1.25rem;
+      border-radius: 0;
+      background: rgba(0, 0, 0, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(6px);
+    }
+
+    section h2 {
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+      font-size: 1.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    section p, section li {
+      font-size: 0.98rem;
+      line-height: 1.6;
+    }
+
+    ul.faq-list,
+    ul.requirements-list,
+    ul.contact-list,
+    ul.socials-list {
+      padding-left: 0;
+      margin: 0.5rem 0 0;
+      list-style-position: inside;
+    }
+
+    .video-wrapper {
+      position: relative;
+      padding-top: 56.25%;
+      margin-top: 1rem;
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .cta-button,
+    .social-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.4rem;
+      border-radius: 0;
+      border: 2px solid rgba(255, 255, 255, 0.85);
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #ffffff;
+      background: rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .cta-button:hover,
+    .social-button:hover {
+      transform: translateY(-1px);
+      border-color: #ffffff;
+    }
+
+    .cta-button .icon,
+    .social-button .icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.2rem;
+      height: 1.2rem;
+    }
+
+    .cta-button .icon svg,
+    .social-button .icon svg {
+      width: 100%;
+      height: 100%;
+      fill: currentColor;
+    }
+
+    .cta-button .icon i,
+    .social-button .icon i {
+      font-size: 1.1rem;
+    }
+
+    .cta-button.itchio {
+      background: #fa5c5c;
+      border-color: #fa5c5c;
+    }
+
+    .cta-button.itchio:hover {
+      background: #ff7676;
+    }
+
+    .cta-button.status {
+      background: #22c55e;
+      border-color: #22c55e;
+    }
+
+    .cta-button.status:hover {
+      background: #16a34a;
+    }
+
+    .social-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .social-button.discord {
+      background: #5865f2;
+      border-color: #5865f2;
+    }
+
+    .social-button.youtube {
+      background: #ff0000;
+      border-color: #ff0000;
+    }
+
+    .social-button.reddit {
+      background: #ff5700;
+      border-color: #ff5700;
+    }
+
+    .social-button.discord:hover {
+      background: #6a75ff;
+    }
+
+    .social-button.youtube:hover {
+      background: #ff3333;
+    }
+
+    .social-button.reddit:hover {
+      background: #ff7b33;
+    }
+
+    .email-note {
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    footer {
+      text-align: center;
+      padding: 0 1.5rem 1.5rem;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    @media (min-width: 768px) {
+      header.hero {
+        padding-top: 4rem;
+      }
+
+      section {
+        padding: 2rem 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="backdrop">
+    <header class="hero">
+      <h1>stratdots</h1>
+      <div class="hero-buttons">
+        <a href="#contact">Contact</a>
+        <a href="#play-for-free">Play for Free</a>
+        <a href="#gameplay">Gameplay</a>
+        <a href="#socials">Socials</a>
+      </div>
+    </header>
+
+    <main>
+      <section id="faq">
+        <h2>FAQ</h2>
+        <ul class="faq-list">
+          <li><strong>What is stratdots?</strong><br />
+            Well stratdots is a multiplayer/singleplayer rts 2d game where you can fight ai or players in different built in scenarios or you can make your own custom scenarios, you can also create your own dot designs to share them or play with them as you wish. Theres way more to the game so you can click this button for more info.
+          </li>
+        </ul>
+        <a class="cta-button status" href="server-status.html" target="_blank" rel="noopener noreferrer">
+          <span class="icon">
+            <i class="fa-solid fa-server" aria-hidden="true"></i>
+          </span>
+          <span>Server Status</span>
+        </a>
+      </section>
+
+      <section id="play-for-free">
+        <h2>Play for Free</h2>
+        <h3>Requirements</h3>
+        <ul class="requirements-list">
+          <li>OS: Windows 7/8/10/11, Linux and Mac</li>
+          <li>RAM: 2 GB</li>
+          <li>Graphics: OpenGL 2.1 support</li>
+          <li>Storage: 100 MB</li>
+        </ul>
+        <a class="cta-button itchio" href="https://ottomanism.itch.io/strat-dots" target="_blank" rel="noopener noreferrer">
+          <span class="icon">
+            <i class="fa-brands fa-itch-io" aria-hidden="true"></i>
+          </span>
+          <span>Play on itch.io</span>
+        </a>
+      </section>
+
+      <section id="gameplay">
+        <h2>Gameplay</h2>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/1lO7GugwcvU" title="stratdots gameplay" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      </section>
+
+      <section id="socials">
+        <h2>Socials</h2>
+        <p>
+          Follow stratdots and join the community:
+        </p>
+        <div class="social-buttons">
+          <a class="social-button discord" href="https://discord.gg/bMmvnCtsaN" target="_blank" rel="noopener noreferrer">
+            <span class="icon">
+              <i class="fa-brands fa-discord" aria-hidden="true"></i>
+            </span>
+            <span>Discord</span>
+          </a>
+          <a class="social-button youtube" href="https://www.youtube.com/@strategydots" target="_blank" rel="noopener noreferrer">
+            <span class="icon">
+              <i class="fa-brands fa-youtube" aria-hidden="true"></i>
+            </span>
+            <span>YouTube</span>
+          </a>
+          <a class="social-button reddit" href="https://www.reddit.com/user/stratdots/" target="_blank" rel="noopener noreferrer">
+            <span class="icon">
+              <i class="fa-brands fa-reddit-alien" aria-hidden="true"></i>
+            </span>
+            <span>Reddit</span>
+          </a>
+        </div>
+      </section>
+
+      <section id="contact">
+        <h2>Contact</h2>
+        <p>
+          Have feedback, bugs to report, or collaboration ideas?
+        </p>
+        <ul class="contact-list">
+          <li>Email: stratdots.help@outlook.com</li>
+        </ul>
+        <div class="email-note">
+          ↳ we are also looking for content creators to show our game on their page, email for more
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      &copy; <span id="year"></span> stratdots. All rights reserved.
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    function smoothScrollTo(targetY, duration) {
+      var startY = window.pageYOffset || document.documentElement.scrollTop || 0;
+      var distance = targetY - startY;
+      var startTime = null;
+
+      function step(timestamp) {
+        if (!startTime) startTime = timestamp;
+        var progress = (timestamp - startTime) / duration;
+        if (progress > 1) progress = 1;
+
+        // easeInOutQuad
+        var eased = progress < 0.5
+          ? 2 * progress * progress
+          : -1 + (4 - 2 * progress) * progress;
+
+        window.scrollTo(0, startY + distance * eased);
+
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      }
+
+      window.requestAnimationFrame(step);
+    }
+
+    var heroLinks = document.querySelectorAll('.hero-buttons a');
+    for (var i = 0; i < heroLinks.length; i++) {
+      heroLinks[i].addEventListener('click', function (event) {
+        var targetId = this.getAttribute('href');
+        if (targetId && targetId.indexOf('#') === 0) {
+          var target = document.querySelector(targetId);
+          if (target) {
+            event.preventDefault();
+            var targetY = target.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop || 0);
+            smoothScrollTo(targetY, 500);
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
